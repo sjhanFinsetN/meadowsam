@@ -2,6 +2,7 @@
 
 const express = require('express')
 const expressHandlebars = require('express-handlebars')
+const handlers=require('./lib/handlers')
 const app=express()
 const port = process.env.PORT || 3000
 
@@ -13,21 +14,21 @@ app.engine('handlebars',expressHandlebars({
 app.set('view engine','handlebars')
 app.use(express.static(__dirname + '/public'))
 
-app.get('/',(req,res)=> {
-    // res.type('text/plain')
-    // res.send('Hello Meadowsam Travel')
-    res.render('home')
-})
+app.get('/',handlers.home)
 
-app.get('/about',(req,res) => {
-    const randomFortune = fortunes[Math.floor(Math.random()*fortunes.length)]
-    res.render('about',{fortune:randomFortune})
-})
+app.get('/about',handlers.about)
 
 // app.get('/about',(req,res)=>{
 //     res.type('text/html')
 //     res.send('<h1>About Meadowsam Travel</h1>')
 // })
+
+// app.get('/product',(req,res) =>{
+//     res.render('product',{product:product.getProduct('MN')})
+// })
+
+app.get('/product',handlers.product)
+
 
 // custom 404 page
 app.use((req,res)=>{
@@ -47,12 +48,6 @@ app.use((err, req, res, next)=>{  // number of arguments matter!
 })
 
 
-const fortunes= [
-    "Conquer your fears or they will conquer you",
-    "All the glitters are not gold",
-    "Conquer your fears or they will conquer you",
-]
-
 app.listen(port, () =>console.log(
     `Listening Port ${port}`
-))
+))  
