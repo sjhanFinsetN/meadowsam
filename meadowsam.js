@@ -24,7 +24,6 @@ app.get('/about',(req,res) => {
     res.render('about',{fortune:randomFortune})
 })
 
-
 // app.get('/about',(req,res)=>{
 //     res.type('text/html')
 //     res.send('<h1>About Meadowsam Travel</h1>')
@@ -44,7 +43,7 @@ app.use((req,res)=>{
 app.use((err, req, res, next)=>{  // number of arguments matter!
     console.error(err.message)
     res.status(500)
-    res.render('500!')
+    res.render('500')
 })
 
 
